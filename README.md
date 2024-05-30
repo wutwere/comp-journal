@@ -1,5 +1,29 @@
 # Competitive Programming Journal
-This is where I track problems that take significant thinking (> ~30 min) to solve and have interesting ideas worth remembering. Sorted most recent to oldest.
+This is where I track problems that took me significant thinking (> ~30 min) to solve and have interesting ideas worth remembering. Sorted most recent to oldest.
+
+## [ABC 348F](https://atcoder.jp/contests/abc348/tasks/abc348_f), 5/15/2024
+
+**Summary:** Given N [1, 2000], M [1, 2000], and N sequences of length M which we will refer to as a 2D grid A, where any element in A is an integer [1, 999], count the number of pairs (i, j) such that 1 <= i < j <= N and sequence i and sequence j are similar. Sequences are similar if there are only an odd number of indices 1 <= k <= M such that A[i][k] = A[j][k].
+
+**Solution:** Keep N bitsets of size N to represent which sequences share an odd number of equal integers. Solve one column at a time. Keep 1000 bitsets of size N, where the i-ith bitset has bit j set if the j-th sequence is i in our current column. Then, iterate over each sequence and xor its answer bitset with the bitset of whatever integer is in its current column. This may seem expensive, but both the initialization and usage of bitsets are 64x quicker. Finally, sum up bits to get the answer (avoid double counting pairs or self pairs).
+
+## [ABC 349F](https://atcoder.jp/contests/abc349/tasks/abc349_f), 5/9/2024
+
+**Summary:** Given an array A of N [1, 2e5] integers that are [1, 1e16], and M [1, 1e16], count the number of subsequences in A such that the LCM of the subsequence is M.
+
+**Solution:** Remove all integers from A which are not factors of M. Prime factorize M. Replace each integer in A with a bitmask representing which max power of prime factor it shares with M. Count all bitmasks, then do 2D DP over bitmasks to count the number of subsequences such that their bitwise OR is all 1s.
+
+## [ABC 350G](https://atcoder.jp/contests/abc350/tasks/abc350_g), 5/7/2024
+
+**Summary:** Given N [1, 1e5] and Q [1, 1e5], you need to process Q queries. Each query is either 1. add an edge between nodes u [1, N] and v [1, N] which are in different components, or 2. if a node is adjacent to both node u and v, print it, otherwise print 0. You are forced to process queries online.
+
+**Solution:** In query type 2, there are only two possible cases. The node is a parent of both or the node is a parent of one and a child of the other. So, keep track of parents in the tree and the answer becomes trivial. To make the solution run in time, merge smaller trees into larger trees and you'll only need to recompute the parents in the smaller tree.
+
+## [ABC 350E](https://atcoder.jp/contests/abc350/tasks/abc350_e), 5/5/2024
+
+**Summary:** Given N [1, 1e18], X [1, 1e9], Y [1, 1e9], and A [2, 6], you can either pay X to replace N with floor(N / A), or pay Y to roll a die giving [1, 6] uniformly randomly where b is the result and replace N with floor(N / b). Calculate the minimum expected cost to make N become 0 with optimal decisions.
+
+**Solution:** Let E(n) be the expected cost for n to reach 0. If we could only choose the random die, then E(n) = Y + (E(n) + E(n / 2) + ... + E(n / 6)) / 6, so E(n) = Y * 6 / 5 + (E(n / 2) + E(n / 3) + ... + E(n / 6)) / 5. Now, we don't need to worry about infinite loops, and we can just do a memoized recursion to calculate this. But, since we have the option to pay X or Y, our real E(n) is min(X + E(n / A), Y * 6 / 5 + (E(n / 2) + E(n / 3) + ... + E(n / 6)) / 5).
 
 ## [CF 1967D](https://codeforces.com/contest/1967/problem/D), 5/2/2024
 
