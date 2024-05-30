@@ -1,6 +1,12 @@
 # Competitive Programming Journal
 This is where I track problems that took me significant thinking (> ~30 min) to solve and have interesting ideas worth remembering. Sorted most recent to oldest.
 
+## [CF 1976D](https://codeforces.com/contest/1976/problem/D), 5/30/2024
+
+**Summary:** Given a balanced bracket string of length N [1, 2e5], count the number of substrings such that the bracket string is still balanced after inverting the substring. Inverting means replacing '(' with ')', and vice versa.
+
+**Solution:** Only invert substrings with an equal number of '(' and ')', otherwise we unbalance the string. In the balance array, if we invert some substring at [l, r], the balance at each index i in this subarray becomes bal[l - 1] - (bal[i] - bal[l - 1]) = 2 * bal[l - 1] - bal[i]. The bracket string will be valid if all balances are non-negative, so our answer is to count all pairs of positions with equal balance x such that all balances between the positions are at most two times x.
+
 ## [ABC 348F](https://atcoder.jp/contests/abc348/tasks/abc348_f), 5/15/2024
 
 **Summary:** Given N [1, 2000], M [1, 2000], and N sequences of length M which we will refer to as a 2D grid A, where any element in A is an integer [1, 999], count the number of pairs (i, j) such that 1 <= i < j <= N and sequence i and sequence j are similar. Sequences are similar if there are only an odd number of indices 1 <= k <= M such that A[i][k] = A[j][k].
