@@ -31,19 +31,19 @@ This is where I track problems that took me significant thinking (> ~30 min) to 
 
 **Solution:** Let E(n) be the expected cost for n to reach 0. If we could only choose the random die, then E(n) = Y + (E(n) + E(n / 2) + ... + E(n / 6)) / 6, so E(n) = Y * 6 / 5 + (E(n / 2) + E(n / 3) + ... + E(n / 6)) / 5. Now, we don't need to worry about infinite loops, and we can just do a memoized recursion to calculate this. But, since we have the option to pay X or Y, our real E(n) is min(X + E(n / A), Y * 6 / 5 + (E(n / 2) + E(n / 3) + ... + E(n / 6)) / 5).
 
-## [CF 1967D](https://codeforces.com/contest/1967/problem/D), 5/2/2024
+## [CF 1967D](https://codeforces.com/contest/1967/problem/D), 5/1/2024
 
 **Summary:** Given arrays A and B of N [1, 1e6] integers that are [1, 1e6], find the minimum number of operations to make A non-decreasing. Each operation, you can choose any set of A[i] and replace each with B[A[i]].
 
 **Solution:** Array B can be thought of as a functional graph. Create a way to determine whether it's possible to reach some node v from node u in this graph in <= k steps in O(1) using precomputed information like DFS order, subtree size, cycle size, etc. Then, binary search on the answer. Each binary search step can be verified in O(n) by working left to right, keeping track of the current desired integer, and incrementing it until it's reachable (or impossible).
 
-## [CF 1967C](https://codeforces.com/contest/1967/problem/C), 5/2/2024
+## [CF 1967C](https://codeforces.com/contest/1967/problem/C), 4/30/2024
 
 **Summary:** Given N [1, 2e5] integers, K [1, 1e9], and an array B which is the K-th Fenwick Tree of some unknown array A, find any possible A. 
 
 **Solution:** In the K-th Fenwick Tree, find how much each node contributes to its ancestors. It turns out that for any node u, any node that is x levels above it adds it (x + K - 1 choose x) times. So, starting from nodes with the lowest bit and working up to the highest bit, traverse upwards and subtract the necessary amount from its ancestors. Then, you end up with A.
 
-## [CF 1967B2](https://codeforces.com/contest/1967/problem/B2), 5/2/2024
+## [CF 1967B2](https://codeforces.com/contest/1967/problem/B2), 4/30/2024
 
 **Summary:** Given N [1, 2e6] and M [1, 2e6], count the number of pairs (a, b) such that a is in [1, N], b is in [1, M], and b * gcd(a, b) is a multiple of a + b.
 
